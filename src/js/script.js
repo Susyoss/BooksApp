@@ -8,17 +8,16 @@ class BooksList{
     
   render(){
     //const thisBook = this;
-    for(let element of dataSource.books){
-      const ratingWidth = element.rating * 100 / 10;
-      const ratingBgc = this.determineRatingBgc(element.rating);
-      let data = {
-        id: element.id,
-        name: element.name,
-        price: element.price,
-        image: element.image,
-        ratingWidth: ratingWidth,
-        ratingBgc: ratingBgc
-      };
+
+    for(let bookData of thisBookList.data.books) {
+        bookData.ratingBgc = thisBookList.determineRatingBgc(bookData.rating);
+        bookData.ratingWidth = bookData.rating * 10;
+        console.log('bookData: ', bookData);
+        const html = templates.book(bookData);
+        const bookDOM = utils.createDOMFromHTML(html); 
+        thisBookList.dom.bookList.appendChild(bookDOM);
+      }
+      
       const generatedHTML = templates(data);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       const listClass = document.querySelector('.books-list');
